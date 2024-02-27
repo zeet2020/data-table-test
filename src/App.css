@@ -32,6 +32,11 @@
   background-color: #f3f3f3;
 }
 
+.data-table tbody tr .status {
+  display: inline-flex;
+  align-items: center;
+}
+
 .table-actions {
   display: inline-flex;
   align-items: center;

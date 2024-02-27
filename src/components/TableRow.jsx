@@ -10,8 +10,8 @@ function TableRow({ data }) {
   let { columnsOrder } = data;
 
   const greenSvg = (
-    <svg height="50" width="50" xmlns="http://www.w3.org/2000/svg">
-      <circle r="8" cx="30" cy="40" fill="green" />
+    <svg height="40" width="40" xmlns="http://www.w3.org/2000/svg">
+      <circle r="8" cx="20" cy="20" fill="green" />
     </svg>
   );
 
@@ -22,8 +22,10 @@ function TableRow({ data }) {
           if (item === "status") {
             return (
               <td key={idx}>
-                {data[item] === "available" ? greenSvg : ""}
-                {TABLE_STATE[data[item]]}
+                <div className="status">
+                  {data[item] === "available" ? greenSvg : ""}
+                  {TABLE_STATE[data[item]]}
+                </div>
               </td>
             );
           } else {

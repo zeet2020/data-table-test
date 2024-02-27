@@ -20,7 +20,7 @@ export const SELECT_ALL_TEST_ID = "select-all-test-id";
 export default function TableContainer({ columns, rows }) {
   //const [dataRows,setDataRows] = React.useState(rows);
   const select_all_ref = React.useRef(null);
-  const [sortBy, setSortBy] = React.useState(null);
+  const [sortBy, setSortBy] = React.useState([]);
 
   const [selectedRows, setSelectedRows] = React.useState({});
 
@@ -37,14 +37,17 @@ export default function TableContainer({ columns, rows }) {
     });
   }, [rows, columns]);
 
-  // memo method sorting, selectAll and unselecting
+  // memo method sorting..
   const dataRows = React.useMemo(() => {
-    if (sortBy) {
-      return processedRows.sort((a, b) => {
-        if (a[sortBy] > b[sortBy]) {
+    if (sortBy.length > 0) {
+      let [col, ord] = sortBy;
+      return processedRows.sort((x, y) => {
+        let [a, b] = ord === "asc" ? [x, y] : [y, x];
+
+        if (a[col] > b[col]) {
           return 1;
         }
-        if (a[sortBy] < b[sortBy]) {
+        if (a[col] < b[col]) {
           return -1;
         }
         return 0;
@@ -87,7 +90,15 @@ export default function TableContainer({ columns, rows }) {
   };
 
   const sortBycolumn = (columnName) => {
-    setSortBy(columnName);
+    let [col, order] = sortBy;
+
+    if (col === columnName) {
+      order = order === "asc" ? "dsc" : "asc";
+    } else {
+      order = "asc";
+    }
+
+    setSortBy([columnName, order]);
   };
 
   const selectedAll = (state) => {
