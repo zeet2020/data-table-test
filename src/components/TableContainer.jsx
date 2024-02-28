@@ -127,12 +127,14 @@ export default function TableContainer({ columns, rows }) {
 
     let mesg = "";
     dataRows.forEach((item) => {
-      if (selectedRows[item.id]) {
+      if (selectedRows[item.id] && item.status === 'available') {
         mesg += `${item.name} ${item.path}\n\n\n`;
       }
     });
-
-    window.alert(mesg);
+    if(mesg.length > 0){
+     window.alert(mesg);
+    }
+    
   };
 
   if (columns.length === 0 && rows.length) {
